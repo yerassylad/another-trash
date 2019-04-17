@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Modal from "./Modal";
+import Search from "./Search";
+import { withRouter } from "react-router-dom";
 
 class ModalSwitch extends Component {
   previousLocation = this.props.location;
@@ -27,6 +29,7 @@ class ModalSwitch extends Component {
       <Fragment>
         <Switch location={isModal ? this.previousLocation : location}>
           <Route exact path="/" component={Home} />
+          <Route path="/search/:search" component={SearchPage} />
         </Switch>
         {isModal ? <Route path="/img/:id" component={Modal} /> : null}
       </Fragment>
@@ -34,26 +37,39 @@ class ModalSwitch extends Component {
   }
 }
 
+const SearchPage = props => {
+  const search = props.match.params.search;
+  return <div>We are looking for {search}</div>;
+};
+
 const Home = () => {
   return (
-    <Fragment>
-      <Link
-        to={{
-          pathname: `/img/0`,
-          state: { modal: true }
-        }}
-      >
-        img0
-      </Link>
-      <Link
-        to={{
-          pathname: `/img/1`,
-          state: { modal: true }
-        }}
-      >
-        img1
-      </Link>
-    </Fragment>
+    <div>
+      <div>
+        <Link
+          to={{
+            pathname: `/img/0`,
+            state: { modal: true }
+          }}
+        >
+          img0
+        </Link>
+        <Link
+          to={{
+            pathname: `/img/1`,
+            state: { modal: true }
+          }}
+        >
+          img1
+        </Link>
+      </div>
+      <div>
+        <Search />
+      </div>
+      <div>
+        <button type="button">search</button>
+      </div>
+    </div>
   );
 };
 
