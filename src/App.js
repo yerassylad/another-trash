@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Modal from "./Modal";
 import Search from "./Search";
+import unsplash from "./api";
 
 class ModalSwitch extends Component {
   previousLocation = this.props.location;
@@ -36,10 +37,37 @@ class ModalSwitch extends Component {
   }
 }
 
-const SearchPage = props => {
-  const search = props.match.params.search;
-  return <div>We are looking for {search}</div>;
-};
+export class SearchPage extends Component {
+  state = {
+    images: []
+  };
+
+  searchImages = async () => {
+    const search = this.props.match.params.search;
+    const response = await unsplash.get("/search/photos", {
+      params: {
+        query: search
+      }
+    });
+    this.setState({ images: response.data.results });
+  };
+
+  componentDidMount = () => {
+    this.searchImages();
+  };
+
+  render() {
+    const { images } = this.state;
+    console.log(images);
+    return (
+      <Fragment>
+        {images.map(image => (
+          <img src={image.urls.regular} alt={image.description} />
+        ))}
+      </Fragment>
+    );
+  }
+}
 
 const Home = () => {
   return (
