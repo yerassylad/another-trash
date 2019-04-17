@@ -2,7 +2,6 @@ import React, { Component, Fragment } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Modal from "./Modal";
 import Search from "./Search";
-import { withRouter } from "react-router-dom";
 
 class ModalSwitch extends Component {
   previousLocation = this.props.location;
