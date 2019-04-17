@@ -51,7 +51,6 @@ const styles = {
     borderRadius: "4px",
     boxShadow: "0 8px 16px rgba(0,0,0,.15)",
     minWidth: 0,
-    minHeight: "400px",
     display: "flex",
     justifyContent: "center"
   },
