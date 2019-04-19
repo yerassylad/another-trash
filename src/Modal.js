@@ -1,17 +1,5 @@
 import React from "react";
 import injectSheet from "react-jss";
-import wrapWithPortal from "./wrapWithPortal";
-
-const IMAGES = [
-  {
-    id: 0,
-    url: "https://pp.userapi.com/c540100/v540100321/6a1ff/CJCO9qy1Vb0.jpg"
-  },
-  {
-    id: 1,
-    url: "https://pp.userapi.com/c846323/v846323472/1cc876/sgfEorVQqHc.jpg"
-  }
-];
 
 const styles = {
   modal: {
@@ -51,6 +39,7 @@ const styles = {
     borderRadius: "4px",
     boxShadow: "0 8px 16px rgba(0,0,0,.15)",
     minWidth: 0,
+    minHeight: 100,
     display: "flex",
     justifyContent: "center"
   },
@@ -60,28 +49,19 @@ const styles = {
 };
 
 let Modal = props => {
-  const { match, history, classes } = props;
+  const { handleClose, classes, children } = props;
 
-  const image = IMAGES[parseInt(match.params.id, 10)];
-  if (!image) return null;
-  const back = e => {
-    e.stopPropagation();
-    history.goBack();
-  };
   return (
     <div className={classes.modal}>
       <div className={classes.modalInner}>
-        <div onClick={back} className={classes.closeButton}>
+        <div onClick={handleClose} className={classes.closeButton}>
           X
         </div>
-        <div className={classes.imageContainer}>
-          <img src={image.url} className={classes.img} alt="asd" />
-        </div>
+        <div className={classes.imageContainer}>{children}</div>
       </div>
     </div>
   );
 };
 
 Modal = injectSheet(styles)(Modal);
-Modal = wrapWithPortal(Modal);
 export default Modal;

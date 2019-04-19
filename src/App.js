@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Modal from "./Modal";
 import Search from "./Search";
 import unsplash from "./api";
+import ImagePage from "./ImagePage";
 
 class ModalSwitch extends Component {
   previousLocation = this.props.location;
@@ -31,7 +32,7 @@ class ModalSwitch extends Component {
           <Route exact path="/" component={Home} />
           <Route path="/search/:search" component={SearchPage} />
         </Switch>
-        {isModal ? <Route path="/img/:id" component={Modal} /> : null}
+        {isModal ? <Route path="/img/:id" component={ImagePage} /> : null}
       </Fragment>
     );
   }
@@ -75,7 +76,7 @@ const Home = () => {
       <div>
         <Link
           to={{
-            pathname: `/img/0`,
+            pathname: `/img/d4v0AwkMsbo`,
             state: { modal: true }
           }}
         >
@@ -83,7 +84,7 @@ const Home = () => {
         </Link>
         <Link
           to={{
-            pathname: `/img/1`,
+            pathname: `/img/JMbEJM1ROn0`,
             state: { modal: true }
           }}
         >
@@ -109,3 +110,7 @@ const App = () => {
 };
 
 export default App;
+
+{
+  /* <img src={image.url} className={classes.img} alt="asd" /> */
+}
