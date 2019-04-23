@@ -5,7 +5,8 @@ import Modal from "./Modal";
 import unsplash from "./api";
 import Avatar from "./components/Main/Avatar";
 import DownloadButton from "./components/Main/DownloadButton";
-import { Grid } from "semantic-ui-react";
+import Stat from "./components/Main/Stat";
+import { Grid, Container } from "semantic-ui-react";
 
 const PortalledModel = wrapWithPortal(Modal);
 
@@ -62,14 +63,14 @@ export class ImagePage extends Component {
               }}
             >
               <Grid verticalAlign="middle" columns={2}>
-                <Grid.Column floated="left" textAlign="left">
+                <Grid.Column textAlign="left">
                   <Avatar
                     avatarUrl={photo.user.profile_image.small}
                     firstName={photo.user.first_name}
                     lastName={photo.user.last_name}
                   />
                 </Grid.Column>
-                <Grid.Column floated="right" textAlign="right">
+                <Grid.Column textAlign="right">
                   <DownloadButton handleClick={() => console.log(photo)} />
                 </Grid.Column>
               </Grid>
@@ -77,7 +78,32 @@ export class ImagePage extends Component {
           </div>
           <Image src={photo.urls.regular} alt={photo.description} />
         </div>
-        <div style={{ width: "100%", height: 1000, background: "lightblue" }} />
+        <div
+          style={{
+            background: "#fff",
+            borderBottomLeftRadius: 4,
+            borderBottomRightRadius: 4,
+            padding: 20
+          }}
+        >
+          <Container>
+            <Grid columns={3} textAlign="center">
+              <Grid.Column>
+                <Stat iconName="eye" value={photo.views} label="Просмотров" />
+              </Grid.Column>
+              <Grid.Column>
+                <Stat
+                  iconName="download"
+                  value={photo.downloads}
+                  label="Скачиваний"
+                />
+              </Grid.Column>
+              <Grid.Column>
+                <Stat iconName="like" value={photo.likes} label="Лайки" />
+              </Grid.Column>
+            </Grid>
+          </Container>
+        </div>
       </PortalledModel>
     );
   }
