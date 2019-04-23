@@ -7,6 +7,11 @@ import Avatar from "./components/Main/Avatar";
 import DownloadButton from "./components/Main/DownloadButton";
 import Stat from "./components/Main/Stat";
 import { Grid, Container } from "semantic-ui-react";
+import {
+  ImagePageHeader,
+  ImagePageStickyContainer,
+  ImagePageStats
+} from "./components/Main/ImagePageComponents";
 
 const PortalledModel = wrapWithPortal(Modal);
 
@@ -47,21 +52,8 @@ export class ImagePage extends Component {
     return (
       <PortalledModel handleClose={this._handleClose}>
         <div>
-          <div
-            style={{
-              position: "-webkit-sticky",
-              position: "sticky",
-              top: 0
-            }}
-          >
-            <div
-              style={{
-                padding: 20,
-                borderTopLeftRadius: 4,
-                borderTopRightRadius: 4,
-                backgroundColor: "#fff"
-              }}
-            >
+          <ImagePageStickyContainer>
+            <ImagePageHeader>
               <Grid verticalAlign="middle" columns={2}>
                 <Grid.Column textAlign="left">
                   <Avatar
@@ -74,18 +66,11 @@ export class ImagePage extends Component {
                   <DownloadButton handleClick={() => console.log(photo)} />
                 </Grid.Column>
               </Grid>
-            </div>
-          </div>
+            </ImagePageHeader>
+          </ImagePageStickyContainer>
           <Image src={photo.urls.regular} alt={photo.description} />
         </div>
-        <div
-          style={{
-            background: "#fff",
-            borderBottomLeftRadius: 4,
-            borderBottomRightRadius: 4,
-            padding: 20
-          }}
-        >
+        <ImagePageStats>
           <Container>
             <Grid columns={3} textAlign="center">
               <Grid.Column>
@@ -103,7 +88,7 @@ export class ImagePage extends Component {
               </Grid.Column>
             </Grid>
           </Container>
-        </div>
+        </ImagePageStats>
       </PortalledModel>
     );
   }
