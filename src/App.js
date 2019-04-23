@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Search from "./Search";
 import unsplash from "./api";
 import ImagePage from "./ImagePage";
-import Avatar from "./components/Main/Avatar";
-import DownloadButton from "./components/Main/DownloadButton";
 import ImageWithDimmer from "./components/Main/ImageWithDimmer";
 
 class ModalSwitch extends Component {
@@ -61,7 +59,6 @@ export class SearchPage extends Component {
 
   render() {
     const { images } = this.state;
-    console.log(images);
     return (
       <Fragment>
         {images.map(image => (
@@ -100,16 +97,6 @@ const Home = () => {
       </div>
       <div>
         <Search />
-      </div>
-      <div>
-        <Avatar
-          avatarUrl="https://images.unsplash.com/profile-1509295422571-8431e534c2c9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&cs=tinysrgb&fit=crop&h=32&w=32"
-          lastName="Aitkazy"
-          firstName="Yerassyl"
-        />
-      </div>
-      <div>
-        <DownloadButton />
       </div>
     </div>
   );
