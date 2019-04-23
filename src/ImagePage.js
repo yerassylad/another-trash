@@ -40,7 +40,18 @@ export class ImagePage extends Component {
     if (!photo) return null;
     return (
       <PortalledModel handleClose={this._handleClose}>
-        <Image src={photo.urls.regular} alt={photo.description} />
+        <div>
+          <div
+            style={{
+              position: "-webkit-sticky",
+              position: "sticky",
+              top: "-1px"
+            }}
+          >
+            asdasdasds
+          </div>
+          <Image src={photo.urls.regular} alt={photo.description} />
+        </div>
       </PortalledModel>
     );
   }

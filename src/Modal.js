@@ -39,9 +39,7 @@ const styles = {
     borderRadius: "4px",
     boxShadow: "0 8px 16px rgba(0,0,0,.15)",
     minWidth: 0,
-    minHeight: 100,
-    display: "flex",
-    justifyContent: "center"
+    minHeight: 100
   },
   img: {
     display: "block"
