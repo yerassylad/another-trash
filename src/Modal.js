@@ -1,5 +1,22 @@
 import React from "react";
+import { Icon } from "semantic-ui-react";
 import injectSheet from "react-jss";
+import styled from "styled-components";
+
+const CloseButton = styled("button")`
+  position: relative;
+  background-color: transparent;
+  color: ${props => (props.color ? props.color : "white")};
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  text-transform: none;
+  cursor: pointer;
+  :hover {
+    box-shadow: none;
+  }
+`;
 
 const styles = {
   modal: {
@@ -53,7 +70,9 @@ let Modal = props => {
     <div className={classes.modal}>
       <div className={classes.modalInner}>
         <div onClick={handleClose} className={classes.closeButton}>
-          X
+          <CloseButton>
+            <Icon name="close" size="large" />
+          </CloseButton>
         </div>
         <div className={classes.imageContainer}>{children}</div>
       </div>

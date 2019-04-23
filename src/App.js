@@ -1,9 +1,26 @@
 import React, { Component, Fragment } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Button, Icon } from "semantic-ui-react";
 import Modal from "./Modal";
 import Search from "./Search";
 import unsplash from "./api";
 import ImagePage from "./ImagePage";
+import styled from "styled-components";
+
+const CloseButton = styled("button")`
+  position: relative;
+  background-color: transparent;
+  color: ${props => (props.color ? props.color : "white")};
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  text-transform: none;
+  cursor: pointer;
+  :hover {
+    box-shadow: none;
+  }
+`;
 
 class ModalSwitch extends Component {
   previousLocation = this.props.location;
@@ -94,9 +111,7 @@ const Home = () => {
       <div>
         <Search />
       </div>
-      <div>
-        <button type="button">search</button>
-      </div>
+      <div />
     </div>
   );
 };

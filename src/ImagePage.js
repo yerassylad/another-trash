@@ -8,6 +8,8 @@ const PortalledModel = wrapWithPortal(Modal);
 
 const Image = styled("img")`
   display: block;
+  width: 100%;
+  height: 100%;
 `;
 
 export class ImagePage extends Component {
@@ -45,7 +47,7 @@ export class ImagePage extends Component {
             style={{
               position: "-webkit-sticky",
               position: "sticky",
-              top: "-1px"
+              top: 0
             }}
           >
             asdasdasds
