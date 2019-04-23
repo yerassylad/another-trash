@@ -65,7 +65,12 @@ export class SearchPage extends Component {
     return (
       <Fragment>
         {images.map(image => (
-          <ImageWithDimmer image={image} />
+          <ImageWithDimmer
+            key={image.id}
+            image={image}
+            handleGoToPhoto={() => console.log("go to photo")}
+            handleDownload={() => console.log("download photo")}
+          />
         ))}
       </Fragment>
     );
