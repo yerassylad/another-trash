@@ -5,6 +5,7 @@ import unsplash from "./api";
 import ImagePage from "./ImagePage";
 import Avatar from "./components/Main/Avatar";
 import DownloadButton from "./components/Main/DownloadButton";
+import ImageWithDimmer from "./components/Main/ImageWithDimmer";
 
 class ModalSwitch extends Component {
   previousLocation = this.props.location;
@@ -64,7 +65,7 @@ export class SearchPage extends Component {
     return (
       <Fragment>
         {images.map(image => (
-          <img src={image.urls.regular} alt={image.description} />
+          <ImageWithDimmer image={image} />
         ))}
       </Fragment>
     );
