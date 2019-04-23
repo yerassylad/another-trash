@@ -3,6 +3,9 @@ import styled from "styled-components";
 import wrapWithPortal from "./wrapWithPortal";
 import Modal from "./Modal";
 import unsplash from "./api";
+import Avatar from "./components/Main/Avatar";
+import DownloadButton from "./components/Main/DownloadButton";
+import { Grid } from "semantic-ui-react";
 
 const PortalledModel = wrapWithPortal(Modal);
 
@@ -50,7 +53,27 @@ export class ImagePage extends Component {
               top: 0
             }}
           >
-            asdasdasds
+            <div
+              style={{
+                padding: 20,
+                borderTopLeftRadius: 4,
+                borderTopRightRadius: 4,
+                backgroundColor: "#fff"
+              }}
+            >
+              <Grid verticalAlign="middle" columns={2}>
+                <Grid.Column floated="left" textAlign="left">
+                  <Avatar
+                    avatarUrl={photo.user.profile_image.small}
+                    firstName={photo.user.first_name}
+                    lastName={photo.user.last_name}
+                  />
+                </Grid.Column>
+                <Grid.Column floated="right" textAlign="right">
+                  <DownloadButton handleClick={() => console.log(photo)} />
+                </Grid.Column>
+              </Grid>
+            </div>
           </div>
           <Image src={photo.urls.regular} alt={photo.description} />
         </div>
