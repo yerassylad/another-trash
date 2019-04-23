@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Search from "./Search";
 import unsplash from "./api";
 import ImagePage from "./ImagePage";
-import ImageWithDimmer from "./components/Main/ImageWithDimmer";
+import PhotoStock from "./components/Main/PhotoStock";
 
 class ModalSwitch extends Component {
   previousLocation = this.props.location;
@@ -59,18 +59,7 @@ export class SearchPage extends Component {
 
   render() {
     const { images } = this.state;
-    return (
-      <Fragment>
-        {images.map(image => (
-          <ImageWithDimmer
-            key={image.id}
-            image={image}
-            handleGoToPhoto={() => console.log("go to photo")}
-            handleDownload={() => console.log("download photo")}
-          />
-        ))}
-      </Fragment>
-    );
+    return <PhotoStock images={images} />;
   }
 }
 
