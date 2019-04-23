@@ -31,23 +31,21 @@ class ImageWithDimmer extends Component {
         <Dimmer active={isDimmerActive}>
           <DimmerContentWrapper onClick={handleGoToPhoto}>
             <Grid columns={2}>
-              <Grid.Row verticalAlign="bottom">
-                <Grid.Column textAlign="left" floated="left">
-                  <Avatar
-                    avatarUrl={image.user.profile_image.small}
-                    firstName={image.user.first_name}
-                    lastName={image.user.last_name}
-                  />
-                </Grid.Column>
-                <Grid.Column textAlign="right" floated="right">
-                  <DownloadButton
-                    handleClick={e => {
-                      handleDownload();
-                      e.stopPropagation();
-                    }}
-                  />
-                </Grid.Column>
-              </Grid.Row>
+              <Grid.Column textAlign="left">
+                <Avatar
+                  avatarUrl={image.user.profile_image.small}
+                  firstName={image.user.first_name}
+                  lastName={image.user.last_name}
+                />
+              </Grid.Column>
+              <Grid.Column textAlign="right">
+                <DownloadButton
+                  handleClick={e => {
+                    handleDownload();
+                    e.stopPropagation();
+                  }}
+                />
+              </Grid.Column>
             </Grid>
           </DimmerContentWrapper>
         </Dimmer>

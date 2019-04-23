@@ -14,8 +14,8 @@ const Avatar = props => {
 
 Avatar.propTypes = {
   avatarUrl: PropTypes.string.isRequired,
-  firstName: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired
+  firstName: PropTypes.string,
+  lastName: PropTypes.string
 };
 
 export default Avatar;

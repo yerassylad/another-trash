@@ -46,7 +46,6 @@ export class ImagePage extends Component {
 
   render() {
     const { photo } = this.state;
-    console.log("imagepage props", this.props);
 
     if (!photo) return null;
     return (
