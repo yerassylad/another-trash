@@ -52,6 +52,7 @@ export class ImagePage extends Component {
           </div>
           <Image src={photo.urls.regular} alt={photo.description} />
         </div>
+        <div style={{ width: "100%", height: 1000, background: "lightblue" }} />
       </PortalledModel>
     );
   }
