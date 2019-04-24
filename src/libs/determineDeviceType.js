@@ -10,4 +10,6 @@ const determineDeviceType = screenWidth => {
   }
 };
 
+// 3 - desktop, 2 -tablet, 1 - mobile
+
 export default determineDeviceType;
