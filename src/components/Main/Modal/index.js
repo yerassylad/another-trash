@@ -24,7 +24,7 @@ const ModalRoot = styled("div")`
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 250;
   background-color: rgba(0, 0, 0, 0.6);
   backface-visibility: hidden;
   overflow: auto;
