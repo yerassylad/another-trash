@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Input, Button, Label } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
 
 export class Search extends Component {
@@ -8,6 +9,9 @@ export class Search extends Component {
   };
 
   handleChange = e => this.setState({ search: e.target.value });
+
+  handleBlur = () =>
+    this.setState({ touched: true, searchButtonClicked: false });
 
   canBeSubmitted = () => {
     const { search } = this.state;
@@ -19,30 +23,36 @@ export class Search extends Component {
     const { history } = this.props;
     const { search } = this.state;
     const canBeSubmitted = this.canBeSubmitted();
+    e.preventDefault();
     if (!canBeSubmitted) {
-      e.preventDefault();
       return;
     }
     history.push(`/search/${search}`);
   };
+
+  handleButtonClick = () => this.setState({ searchButtonClicked: true });
 
   render() {
     const { search, searchButtonClicked } = this.state;
     const canBeSubmitted = this.canBeSubmitted();
     return (
       <form onSubmit={this.handleSearch}>
-        <input
+        <Input
+          fluid
+          onChange={e => this.setState({ search: e.target.value })}
           value={search}
-          onBlur={() =>
-            this.setState({ touched: true, searchButtonClicked: false })
-          }
-          onChange={this.handleChange}
-        />
-        <button onClick={() => this.setState({ searchButtonClicked: true })}>
-          search
-        </button>
+          onBlur={this.handleBlur}
+          type="text"
+          placeholder="search hd photos"
+          action
+        >
+          <input />
+          <Button onClick={this.handleButtonClick} type="submit">
+            search
+          </Button>
+        </Input>
         {searchButtonClicked && !canBeSubmitted && (
-          <span>please fill out search field</span>
+          <Label pointing>fill out</Label>
         )}
       </form>
     );
