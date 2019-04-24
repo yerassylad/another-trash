@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Input, Button, Label } from "semantic-ui-react";
+import { Input, Button, Popup } from "semantic-ui-react";
 
 const SearchForm = props => {
   const {
@@ -13,25 +13,30 @@ const SearchForm = props => {
     handleBlur
   } = props;
   return (
-    <form onSubmit={handleSubmit}>
-      <Input
-        fluid
-        onChange={handleChange}
-        value={value}
-        onBlur={handleBlur}
-        type="text"
-        placeholder="search hd photos"
-        action
-      >
-        <input />
-        <Button onClick={handleButtonClick} type="submit">
-          search
-        </Button>
-      </Input>
-      {isSearchButtonClicked && !canBeSubmitted && (
-        <Label pointing>fill out</Label>
-      )}
-    </form>
+    <Popup
+      basic
+      open={isSearchButtonClicked && !canBeSubmitted}
+      content="Пожалуйста, заполните поле поиска"
+      position="bottom center"
+      trigger={
+        <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+          <Input
+            fluid
+            onChange={handleChange}
+            value={value}
+            onBlur={handleBlur}
+            type="text"
+            placeholder="search hd photos"
+            action
+          >
+            <input />
+            <Button onClick={handleButtonClick} type="submit">
+              search
+            </Button>
+          </Input>
+        </form>
+      }
+    />
   );
 };
 

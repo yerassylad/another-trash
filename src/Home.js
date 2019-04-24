@@ -1,10 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Search from "./Search";
+import FixedMenu from "./components/Main/FixedMenu";
 
 const Home = props => {
   return (
     <div>
+      <div>
+        <FixedMenu />
+      </div>
       <div>
         <Link
           to={{
