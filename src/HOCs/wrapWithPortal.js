@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 
 const wrapWithPortal = WrappedComponent => {
-  class Modal extends Component {
+  class WrapWithPortal extends Component {
     componentWillMount = () => {
       this.root = document.createElement("div");
       this.root.setAttribute("class", "react-portals-modal");
@@ -21,11 +21,11 @@ const wrapWithPortal = WrappedComponent => {
     }
   }
 
-  Modal.displayName = `wrappedWithPortal(${WrappedComponent.displayName ||
+  WrapWithPortal.displayName = `wrappedWithPortal(${WrappedComponent.displayName ||
     WrappedComponent.name ||
     "Component"})`;
 
-  return Modal;
+  return WrapWithPortal;
 };
 
 export default wrapWithPortal;

@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import styled from "styled-components";
-import wrapWithPortal from "./wrapWithPortal";
-import Modal from "./Modal";
+import wrapWithPortal from "./HOCs/wrapWithPortal";
+import Modal from "./components/Main/Modal";
 import unsplash from "./api";
 import Avatar from "./components/Main/Avatar";
 import DownloadButton from "./components/Main/DownloadButton";
 import Stat from "./components/Main/Stat";
-import { Grid, Container } from "semantic-ui-react";
+import { Grid, Container, Image } from "semantic-ui-react";
 import {
   ImagePageHeader,
   ImagePageStickyContainer,
@@ -14,12 +13,6 @@ import {
 } from "./components/Main/ImagePageComponents";
 
 const PortalledModel = wrapWithPortal(Modal);
-
-const Image = styled("img")`
-  display: block;
-  width: 100%;
-  height: 100%;
-`;
 
 export class ImagePage extends Component {
   state = {
@@ -67,7 +60,7 @@ export class ImagePage extends Component {
               </Grid>
             </ImagePageHeader>
           </ImagePageStickyContainer>
-          <Image src={photo.urls.regular} alt={photo.description} />
+          <Image src={photo.urls.regular} fluid />
         </div>
         <ImagePageStats>
           <Container>
