@@ -9,7 +9,8 @@ const SearchForm = props => {
     value,
     handleSubmit,
     handleChange,
-    handleButtonClick
+    handleButtonClick,
+    handleBlur
   } = props;
   return (
     <form onSubmit={handleSubmit}>
@@ -17,7 +18,7 @@ const SearchForm = props => {
         fluid
         onChange={handleChange}
         value={value}
-        onBlur={this.handleBlur}
+        onBlur={handleBlur}
         type="text"
         placeholder="search hd photos"
         action
@@ -40,7 +41,8 @@ SearchForm.propTypes = {
   value: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
-  handleButtonClick: PropTypes.func.isRequired
+  handleButtonClick: PropTypes.func.isRequired,
+  handleBlur: PropTypes.func.isRequired
 };
 
 export default SearchForm;

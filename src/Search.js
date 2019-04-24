@@ -1,60 +1,49 @@
 import React, { Component } from "react";
-import { Input, Button, Label } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
+import SearchForm from "./components/Main/SearchForm";
 
 export class Search extends Component {
   state = {
-    search: "",
-    searchButtonClicked: false
+    searchValue: "",
+    isSearchButtonClicked: false
   };
 
-  handleChange = e => this.setState({ search: e.target.value });
+  handleChange = e => this.setState({ searchValue: e.target.value });
 
-  handleBlur = () =>
-    this.setState({ touched: true, searchButtonClicked: false });
+  handleBlur = () => this.setState({ isSearchButtonClicked: false });
 
   canBeSubmitted = () => {
-    const { search } = this.state;
-    const error = search.length === 0;
+    const { searchValue } = this.state;
+    const error = searchValue.length === 0;
     return !error;
   };
 
-  handleSearch = e => {
+  handleSubmit = e => {
     const { history } = this.props;
-    const { search } = this.state;
+    const { searchValue } = this.state;
     const canBeSubmitted = this.canBeSubmitted();
     e.preventDefault();
     if (!canBeSubmitted) {
       return;
     }
-    history.push(`/search/${search}`);
+    history.push(`/search/${searchValue}`);
   };
 
-  handleButtonClick = () => this.setState({ searchButtonClicked: true });
+  handleButtonClick = () => this.setState({ isSearchButtonClicked: true });
 
   render() {
-    const { search, searchButtonClicked } = this.state;
+    const { searchValue, isSearchButtonClicked } = this.state;
     const canBeSubmitted = this.canBeSubmitted();
     return (
-      <form onSubmit={this.handleSearch}>
-        <Input
-          fluid
-          onChange={e => this.setState({ search: e.target.value })}
-          value={search}
-          onBlur={this.handleBlur}
-          type="text"
-          placeholder="search hd photos"
-          action
-        >
-          <input />
-          <Button onClick={this.handleButtonClick} type="submit">
-            search
-          </Button>
-        </Input>
-        {searchButtonClicked && !canBeSubmitted && (
-          <Label pointing>fill out</Label>
-        )}
-      </form>
+      <SearchForm
+        handleSubmit={this.handleSubmit}
+        canBeSubmitted={canBeSubmitted}
+        isSearchButtonClicked={isSearchButtonClicked}
+        value={searchValue}
+        handleChange={this.handleChange}
+        handleBlur={this.handleBlur}
+        handleButtonClick={this.handleButtonClick}
+      />
     );
   }
 }
