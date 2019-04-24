@@ -3,10 +3,10 @@ import { Grid } from "semantic-ui-react";
 import ImageWithDimmer from "../ImageWithDimmer";
 
 const RegularPhotoStock = props => {
-  const { columnedPhotos } = props;
+  const { columnedPhotos, columns } = props;
   return (
     <Grid>
-      <Grid.Row columns={3}>
+      <Grid.Row columns={columns}>
         {columnedPhotos.map((column, index) => (
           <Grid.Column key={index}>
             {column.map(photo => (

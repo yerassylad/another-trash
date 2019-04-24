@@ -10,7 +10,9 @@ export class PhotoStock extends Component {
     const columns = deviceType;
     if (columns === 1) return <MobilePhotoStock photos={images} />;
     const columnedPhotos = spreadArray(images, columns);
-    return <RegularPhotoStock columnedPhotos={columnedPhotos} />;
+    return (
+      <RegularPhotoStock columnedPhotos={columnedPhotos} columns={columns} />
+    );
   }
 }
 

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import debounce from "./libs/debounce";
 import determineScreenSizes from "./libs/determineScreenSizes";
+import determineDeviceType from "./libs/determineDeviceType";
 import updateDeviceType from "./actions/Core/updateDeviceType";
 import updateScreenSizes from "./actions/Core/updateScreenSizes";
 import ModalSwitch from "./ModalSwitch";
@@ -15,20 +16,9 @@ export class App extends Component {
   }, 150);
 
   deviceTypeUpdater = () => {
-    const { updateDeviceType } = this.props;
-    const deviceType = this.determineDeviceType();
+    const { updateDeviceType, screenWidth } = this.props;
+    const deviceType = determineDeviceType(screenWidth);
     updateDeviceType(deviceType);
-  };
-
-  determineDeviceType = () => {
-    const { screenWidth } = this.props;
-    if (screenWidth > 991) {
-      return 3;
-    } else if (screenWidth <= 991 && screenWidth > 479) {
-      return 2;
-    } else if (screenWidth <= 479) {
-      return 1;
-    }
   };
 
   componentWillMount = () => {
