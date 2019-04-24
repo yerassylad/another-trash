@@ -1,12 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Search from "./Search";
 import FixedMenu from "./components/Main/FixedMenu";
-import Logo from "./components/Main/Logo";
 
 const Home = props => {
   return (
-    <div>
+    <div style={{ backgroundColor: "blue", width: "100%", height: 2000 }}>
       <div>
         <FixedMenu />
       </div>
@@ -27,12 +25,6 @@ const Home = props => {
         >
           img1
         </Link>
-      </div>
-      <div>
-        <Search />
-      </div>
-      <div>
-        <Logo />
       </div>
     </div>
   );
