@@ -17,9 +17,8 @@ class ImageWithDimmer extends Component {
 
   render() {
     const { isDimmerActive } = this.state;
-    const { image, handleGoToPhoto, handleDownload } = this.props;
+    const { user, imageSrc, handleGoToPhoto, handleDownload } = this.props;
 
-    if (!image) return null;
     return (
       <Dimmer.Dimmable
         as={ImageWrapper}
@@ -27,15 +26,18 @@ class ImageWithDimmer extends Component {
         onMouseEnter={this.handleShow}
         onMouseLeave={this.handleHide}
       >
-        <Image src={image.urls.regular} fluid />
-        <Dimmer active={isDimmerActive}>
+        <Image src={imageSrc} fluid />
+        <Dimmer
+          style={{ backgroundColor: "rgba(0,0,0,0.3)" }}
+          active={isDimmerActive}
+        >
           <DimmerContentWrapper onClick={handleGoToPhoto}>
             <Grid columns={2}>
               <Grid.Column textAlign="left">
                 <Avatar
-                  avatarUrl={image.user.profile_image.small}
-                  firstName={image.user.first_name}
-                  lastName={image.user.last_name}
+                  avatarUrl={user.avatarUrl}
+                  firstName={user.firstName}
+                  lastName={user.lastName}
                 />
               </Grid.Column>
               <Grid.Column textAlign="right">
@@ -55,14 +57,10 @@ class ImageWithDimmer extends Component {
 }
 
 ImageWithDimmer.propTypes = {
-  image: PropTypes.objectOf(PropTypes.any).isRequired,
-  handleGoToPhoto: PropTypes.func.isRequired,
-  handleDownload: PropTypes.func.isRequired
-};
-
-ImageWithDimmer.defaultProps = {
-  handleDownload: () => {},
-  handleGoToPhoto: () => {}
+  imageSrc: PropTypes.string.isRequired,
+  user: PropTypes.objectOf(PropTypes.any).isRequired,
+  handleGoToPhoto: PropTypes.func.isRequired.isRequired,
+  handleDownload: PropTypes.func.isRequired.isRequired
 };
 
 export default ImageWithDimmer;
