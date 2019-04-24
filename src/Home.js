@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Search from "./Search";
 import FixedMenu from "./components/Main/FixedMenu";
+import Logo from "./components/Main/Logo";
 
 const Home = props => {
   return (
@@ -29,6 +30,9 @@ const Home = props => {
       </div>
       <div>
         <Search />
+      </div>
+      <div>
+        <Logo />
       </div>
     </div>
   );
