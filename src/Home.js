@@ -5,9 +5,9 @@ import FixedMenu from "./components/Main/FixedMenu";
 const Home = props => {
   return (
     <div style={{ backgroundColor: "blue", width: "100%", height: 2000 }}>
-      <div>
+      {/* <div>
         <FixedMenu />
-      </div>
+      </div> */}
       <div>
         <Link
           to={{
