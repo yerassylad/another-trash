@@ -3,6 +3,8 @@ import appendPhotos from "./appendPhotos";
 
 export default page => async dispatch => {
   try {
+    console.log("from gome", page);
+
     const response = await unsplash("/photos", {
       params: {
         page

@@ -21,7 +21,17 @@ export class Home extends Component {
   };
 
   componentDidMount = () => {
-    this.getLatestPhotos();
+    const { page } = this.props;
+    if (page === 1) {
+      this.getLatestPhotos();
+    }
+  };
+
+  componentDidUpdate = prevProps => {
+    const { page } = this.props;
+    if (prevProps.page !== 1 && page === 1) {
+      this.getLatestPhotos(page);
+    }
   };
 
   componentWillUnmount = () => {
@@ -36,15 +46,6 @@ export class Home extends Component {
       <div>
         <FixedMenu />
         <PhotoStock images={photos} appendImages={this.appendLatestPhotos} />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <button onClick={this.appendLatestPhotos}>+</button>
       </div>
     );
   }
