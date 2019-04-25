@@ -1,14 +1,19 @@
 import React from "react";
 import { Grid, Image } from "semantic-ui-react";
+import { withRouter } from "react-router-dom";
 import TestDimmer from "../ImageWithDimmer/TestDimmer";
 import penultImage from "../../../HOCs/penultImage";
 
 const PenultImage = penultImage(Image);
 
 const ImageWithDimmer = props => {
-  const { user, imageSrc } = props;
+  const { user, imageSrc, goTo } = props;
   return (
-    <TestDimmer user={user}>
+    <TestDimmer
+      user={user}
+      handleGoToPhoto={goTo}
+      handleDownload={() => console.log("download button")}
+    >
       <Image src={imageSrc} fluid />
     </TestDimmer>
   );
@@ -25,7 +30,16 @@ const PenultImageWithDimmer = props => {
 };
 
 const RegularPhotoStock = props => {
-  const { columnedPhotos, columns, appendImages } = props;
+  const { columnedPhotos, columns, appendImages, history } = props;
+
+  const goToFn = id => () => {
+    history.push({
+      pathname: `/img/${id}`,
+      state: {
+        modal: true
+      }
+    });
+  };
 
   return (
     <Grid>
@@ -56,6 +70,7 @@ const RegularPhotoStock = props => {
                       firstName: photo.user.first_name,
                       lastName: photo.user.last_name
                     }}
+                    goTo={goToFn(photo.id)}
                   />
                 );
               }
@@ -67,4 +82,4 @@ const RegularPhotoStock = props => {
   );
 };
 
-export default RegularPhotoStock;
+export default withRouter(RegularPhotoStock);
