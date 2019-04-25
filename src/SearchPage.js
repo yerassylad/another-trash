@@ -1,30 +1,68 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import searchPhotos from "./actions/Pohotos/searchPhotos";
+import incrementPage from "./actions/Pohotos/incrementPage";
+import clearPhotos from "./actions/Pohotos/clearPhotos";
+import toPageOne from "./actions/Pohotos/toPageOne";
 import PhotoStock from "./components/Main/PhotoStock";
-import unsplash from "./api";
 
 class SearchPage extends Component {
-  state = {
-    images: []
+  searchPhotos = () => {
+    const { searchPhotos, match, page } = this.props;
+    const query = match.params.search;
+    searchPhotos(query, page);
   };
 
-  searchImages = async () => {
-    const search = this.props.match.params.search;
-    const response = await unsplash.get("/search/photos", {
-      params: {
-        query: search
-      }
-    });
-    this.setState({ images: response.data.results });
+  appendSearchPhotos = () => {
+    const { incrementPage, searchPhotos, match, page } = this.props;
+    const query = match.params.search;
+    incrementPage();
+    searchPhotos(query, page + 1);
   };
 
   componentDidMount = () => {
-    this.searchImages();
+    const { page } = this.props;
+    if (page === 1) {
+      this.searchPhotos();
+    }
+  };
+
+  componentDidUpdate = prevProps => {
+    const { page } = this.props;
+    if (prevProps.page !== 1 && page === 1) {
+      this.searchPhotos();
+    }
+  };
+
+  componentWillUnmount = () => {
+    const { clearPhotos, toPageOne } = this.props;
+    toPageOne();
+    clearPhotos();
   };
 
   render() {
-    const { images } = this.state;
-    return <PhotoStock images={images} />;
+    const { photos } = this.props;
+    return (
+      <div>
+        <PhotoStock images={photos} appendImages={this.appendSearchPhotos} />
+      </div>
+    );
   }
 }
 
-export default SearchPage;
+const mapStateToProps = state => ({
+  page: state.photos.page,
+  photos: state.photos.photos
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    { searchPhotos, incrementPage, clearPhotos, toPageOne },
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchPage);
