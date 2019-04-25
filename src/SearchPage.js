@@ -14,6 +14,13 @@ class SearchPage extends Component {
     searchPhotos(query, page);
   };
 
+  appendSearchPhotos = () => {
+    const { incrementPage, searchPhotos, page, match } = this.props;
+    const query = match.params.search;
+    incrementPage();
+    searchPhotos(query, page + 1);
+  };
+
   componentDidMount = () => {
     this.searchPhotos();
   };
@@ -25,22 +32,10 @@ class SearchPage extends Component {
   };
 
   render() {
-    const { incrementPage, photos } = this.props;
+    const { photos } = this.props;
     return (
       <div>
-        <div>
-          <button onClick={incrementPage}>incerment page</button>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-        </div>
-        <div>
-          <PhotoStock images={photos} />
-        </div>
+        <PhotoStock images={photos} appendImages={this.appendSearchPhotos} />
       </div>
     );
   }

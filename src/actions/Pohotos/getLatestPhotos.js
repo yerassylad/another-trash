@@ -4,7 +4,9 @@ import appendPhotos from "./appendPhotos";
 export default page => async dispatch => {
   try {
     const response = await unsplash("/photos", {
-      page
+      params: {
+        page
+      }
     });
     const latestPhotos = response.data;
     dispatch(appendPhotos(latestPhotos));
