@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import core from "./Core";
-import photos from "./Photos";
+import page from "./pageReducer";
+import photos from "./photosReducer";
 
 export default combineReducers({
-  core,
+  page,
   photos
 });
