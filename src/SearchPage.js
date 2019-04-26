@@ -30,6 +30,8 @@ class SearchPage extends Component {
 
   componentDidMount = () => {
     const { page } = this.props;
+    console.log("pagepagepage", page);
+
     if (page === 1) {
       this.searchPhotos();
     }
@@ -44,8 +46,10 @@ class SearchPage extends Component {
 
   componentWillUpdate = nextProps => {
     const { match } = this.props;
+    console.log("query", match.params.search, nextProps.match.params.search);
+
     if (match.params.search !== nextProps.match.params.search) {
-      this.cleanSearchedPhotos();
+      this.forceUpdate();
     }
   };
 

@@ -21,17 +21,17 @@ export class Home extends Component {
   };
 
   componentDidMount = () => {
-    // const { page } = this.props;
-    // if (page === 1) {
-    //   this.getLatestPhotos();
-    // }
+    const { page } = this.props;
+    if (page === 1) {
+      this.getLatestPhotos();
+    }
   };
 
   componentDidUpdate = prevProps => {
-    // const { page } = this.props;
-    // if (prevProps.page !== 1 && page === 1) {
-    //   this.getLatestPhotos(page);
-    // }
+    const { page } = this.props;
+    if (prevProps.page !== 1 && page === 1) {
+      this.getLatestPhotos(page);
+    }
   };
 
   componentWillUnmount = () => {
