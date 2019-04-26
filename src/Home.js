@@ -7,6 +7,7 @@ import toPageOne from "./actions/Pohotos/toPageOne";
 import incrementPage from "./actions/Pohotos/incrementPage";
 import getLatestPhotos from "./actions/Pohotos/getLatestPhotos";
 import PhotoStock from "./components/Main/PhotoStock";
+import Janym from "./Janym";
 
 export class Home extends Component {
   getLatestPhotos = () => {
@@ -21,17 +22,17 @@ export class Home extends Component {
   };
 
   componentDidMount = () => {
-    const { page } = this.props;
-    if (page === 1) {
-      this.getLatestPhotos();
-    }
+    // const { page } = this.props;
+    // if (page === 1) {
+    //   this.getLatestPhotos();
+    // }
   };
 
   componentDidUpdate = prevProps => {
-    const { page } = this.props;
-    if (prevProps.page !== 1 && page === 1) {
-      this.getLatestPhotos(page);
-    }
+    // const { page } = this.props;
+    // if (prevProps.page !== 1 && page === 1) {
+    //   this.getLatestPhotos(page);
+    // }
   };
 
   componentWillUnmount = () => {
@@ -44,8 +45,10 @@ export class Home extends Component {
     const { photos } = this.props;
     return (
       <div>
-        <FixedMenu />
-        <PhotoStock images={photos} appendImages={this.appendLatestPhotos} />
+        {/* <FixedMenu />
+        <PhotoStock images={photos} appendImages={this.appendLatestPhotos} /> */}
+        sear
+        <Janym />
       </div>
     );
   }

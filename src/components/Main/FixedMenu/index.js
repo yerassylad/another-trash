@@ -1,8 +1,11 @@
 import React from "react";
-import { Menu, Icon } from "semantic-ui-react";
-import Search from "../../../Search";
+import { Menu } from "semantic-ui-react";
 import Logo from "../Logo";
 import { withRouter } from "react-router-dom";
+import searchForm from "../../../HOCs/searchForm";
+import SearchForm from "../SearchForm";
+
+const RegularSearch = searchForm(SearchForm);
 
 const FixedMenu = props => {
   console.log("from fixed menu", props);
@@ -18,7 +21,7 @@ const FixedMenu = props => {
           <Logo />
         </Menu.Item>
         <Menu.Item style={{ flexGrow: 1 }}>
-          <Search />
+          <RegularSearch />
         </Menu.Item>
       </Menu>
       <div style={{ height: 80 }} />
