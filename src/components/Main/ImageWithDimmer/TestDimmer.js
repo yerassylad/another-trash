@@ -28,7 +28,7 @@ class TestDimmer extends Component {
       >
         {children}
         <Dimmer
-          style={{ backgroundColor: "rgba(0,0,0,0.3)" }}
+          style={{ backgroundColor: "rgba(0,0,0,0.3)", zIndex: 100 }}
           active={isDimmerActive}
         >
           <DimmerContentWrapper onClick={handleGoToPhoto}>
