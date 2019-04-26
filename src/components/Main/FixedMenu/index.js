@@ -1,22 +1,28 @@
 import React from "react";
-import { Menu, Icon } from "semantic-ui-react";
-import Search from "../../../Search";
-import Logo from "../Logo";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import MobileFixedMenu from "./MobileFixedMenu";
+import RegulaFixedMenu from "./RegulaFixedMenu";
 
 const FixedMenu = props => {
-  return (
-    <div>
-      <Menu style={{ height: 80 }} fixed="top" borderless>
-        <Menu.Item header>
-          <Logo />
-        </Menu.Item>
-        <Menu.Item style={{ flexGrow: 1 }}>
-          <Search />
-        </Menu.Item>
-      </Menu>
-      <div style={{ height: 80 }} />
-    </div>
-  );
+  const { location, history, deviceType } = props;
+  const isHomeDisabled = location.pathname === "/";
+  const goHomeFn = () => {
+    history.push("/");
+  };
+  if (deviceType === 1) {
+    return (
+      <MobileFixedMenu isHomeDisabled={isHomeDisabled} goHome={goHomeFn} />
+    );
+  } else {
+    return (
+      <RegulaFixedMenu isHomeDisabled={isHomeDisabled} goHome={goHomeFn} />
+    );
+  }
 };
 
-export default FixedMenu;
+const mapStateToProps = state => ({
+  deviceType: state.core.deviceType
+});
+
+export default withRouter(connect(mapStateToProps)(FixedMenu));
