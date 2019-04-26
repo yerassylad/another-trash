@@ -6,12 +6,19 @@ import incrementPage from "./actions/Pohotos/incrementPage";
 import clearPhotos from "./actions/Pohotos/clearPhotos";
 import toPageOne from "./actions/Pohotos/toPageOne";
 import PhotoStock from "./components/Main/PhotoStock";
+import FixedMenu from "./components/Main/FixedMenu";
 
 class SearchPage extends Component {
   searchPhotos = () => {
     const { searchPhotos, match, page } = this.props;
     const query = match.params.search;
     searchPhotos(query, page);
+  };
+
+  cleanSearchedPhotos = () => {
+    const { clearPhotos, toPageOne } = this.props;
+    toPageOne();
+    clearPhotos();
   };
 
   appendSearchPhotos = () => {
@@ -35,16 +42,23 @@ class SearchPage extends Component {
     }
   };
 
+  componentWillUpdate = nextProps => {
+    const { match } = this.props;
+    if (match.params.search !== nextProps.match.params.search) {
+      this.cleanSearchedPhotos();
+    }
+  };
+
   componentWillUnmount = () => {
-    const { clearPhotos, toPageOne } = this.props;
-    toPageOne();
-    clearPhotos();
+    this.cleanSearchedPhotos();
   };
 
   render() {
     const { photos } = this.props;
+
     return (
       <div>
+        <FixedMenu />
         <PhotoStock images={photos} appendImages={this.appendSearchPhotos} />
       </div>
     );
