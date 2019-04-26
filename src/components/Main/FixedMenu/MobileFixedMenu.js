@@ -1,20 +1,12 @@
 import React, { Component } from "react";
 import { Menu, Icon } from "semantic-ui-react";
-import styled from "styled-components";
-import searchForm from "./HOCs/searchForm";
-import MobileSearchForm from "./components/Main/SearchForm/MobileSearchForm";
+import searchForm from "../../../HOCs/searchForm";
+import MobileSearchForm from "../SearchForm/MobileSearchForm";
+import TextButton from "../TextButton";
 
 const MobileSearch = searchForm(MobileSearchForm);
 
-const TextButton = styled("button")`
-  background: none;
-  border: none;
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-`;
-
-export class Janym extends Component {
+export class MobileFixedMenu extends Component {
   state = {
     isSearchOpen: false
   };
@@ -50,4 +42,4 @@ export class Janym extends Component {
   }
 }
 
-export default Janym;
+export default MobileFixedMenu;

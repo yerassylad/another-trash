@@ -7,7 +7,6 @@ import toPageOne from "./actions/Pohotos/toPageOne";
 import incrementPage from "./actions/Pohotos/incrementPage";
 import getLatestPhotos from "./actions/Pohotos/getLatestPhotos";
 import PhotoStock from "./components/Main/PhotoStock";
-import Janym from "./Janym";
 
 export class Home extends Component {
   getLatestPhotos = () => {
@@ -45,10 +44,8 @@ export class Home extends Component {
     const { photos } = this.props;
     return (
       <div>
-        {/* <FixedMenu />
-        <PhotoStock images={photos} appendImages={this.appendLatestPhotos} /> */}
-        sear
-        <Janym />
+        <FixedMenu />
+        <PhotoStock images={photos} appendImages={this.appendLatestPhotos} />
       </div>
     );
   }
