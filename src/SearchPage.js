@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import searchPhotos from "./actions/Pohotos/searchPhotos";
 import incrementPage from "./actions/Pohotos/incrementPage";
-import clearPhotos from "./actions/Pohotos/clearPhotos";
-import toPageOne from "./actions/Pohotos/toPageOne";
 import PhotoStock from "./components/Main/PhotoStock";
 import FixedMenu from "./components/Main/FixedMenu";
 
@@ -13,12 +11,6 @@ class SearchPage extends Component {
     const { searchPhotos, match, page } = this.props;
     const query = match.params.search;
     searchPhotos(query, page);
-  };
-
-  cleanSearchedPhotos = () => {
-    const { clearPhotos, toPageOne } = this.props;
-    toPageOne();
-    clearPhotos();
   };
 
   appendSearchPhotos = () => {
@@ -30,11 +22,11 @@ class SearchPage extends Component {
 
   componentDidMount = () => {
     const { page } = this.props;
-    console.log("pagepagepage", page);
+    // console.log("pagepagepage", this.props);
 
-    if (page === 1) {
-      this.searchPhotos();
-    }
+    // if (page === 1) {
+    //   this.searchPhotos();
+    // }
   };
 
   componentDidUpdate = prevProps => {
@@ -44,17 +36,11 @@ class SearchPage extends Component {
     }
   };
 
-  componentWillUpdate = nextProps => {
-    const { match } = this.props;
-    console.log("query", match.params.search, nextProps.match.params.search);
-
-    if (match.params.search !== nextProps.match.params.search) {
-      this.forceUpdate();
-    }
-  };
+  componentWillUpdate = nextProps => {};
 
   componentWillUnmount = () => {
-    this.cleanSearchedPhotos();
+    const { defaultPhotos } = this.props;
+    defaultPhotos();
   };
 
   render() {
@@ -76,7 +62,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
-    { searchPhotos, incrementPage, clearPhotos, toPageOne },
+    {
+      searchPhotos,
+      incrementPage,
+      defaultPhotos: () => ({
+        type: "DEFAULT_PHOTOS"
+      })
+    },
     dispatch
   );
 

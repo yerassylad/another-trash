@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import FixedMenu from "./components/Main/FixedMenu";
-import clearPhotos from "./actions/Pohotos/clearPhotos";
-import toPageOne from "./actions/Pohotos/toPageOne";
 import incrementPage from "./actions/Pohotos/incrementPage";
 import getLatestPhotos from "./actions/Pohotos/getLatestPhotos";
 import PhotoStock from "./components/Main/PhotoStock";
@@ -35,9 +33,8 @@ export class Home extends Component {
   };
 
   componentWillUnmount = () => {
-    const { clearPhotos, toPageOne } = this.props;
-    toPageOne();
-    clearPhotos();
+    const { defaultPhotos } = this.props;
+    defaultPhotos();
   };
 
   render() {
@@ -59,10 +56,11 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      clearPhotos,
-      toPageOne,
       getLatestPhotos,
-      incrementPage
+      incrementPage,
+      defaultPhotos: () => ({
+        type: "DEFAULT_PHOTOS"
+      })
     },
     dispatch
   );
