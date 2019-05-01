@@ -3,16 +3,18 @@ import appendPhotos from "./appendPhotos";
 
 export default page => async dispatch => {
   try {
-    console.log("from gome", page);
-
-    const response = await unsplash("/photos", {
+    const response = await unsplash({
+      method: "get",
+      url: "/photos",
       params: {
-        page
+        page,
+        per_page: 10,
+        order_by: "latest"
       }
     });
     const latestPhotos = response.data;
     dispatch(appendPhotos(latestPhotos));
   } catch (error) {
-    console.log("there is an error", error);
+    console.log("error", error);
   }
 };

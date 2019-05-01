@@ -7,42 +7,55 @@ import getLatestPhotos from "./actions/Pohotos/getLatestPhotos";
 import PhotoStock from "./components/Main/PhotoStock";
 
 export class Home extends Component {
-  getLatestPhotos = () => {
-    const { getLatestPhotos, page } = this.props;
+  fetchLatestPhotos = page => {
+    const { getLatestPhotos } = this.props;
     getLatestPhotos(page);
   };
 
-  appendLatestPhotos = () => {
-    const { incrementPage, getLatestPhotos, page } = this.props;
-    incrementPage();
-    getLatestPhotos(page + 1);
-  };
+  // componentDidMount = () => {
+  //   const { page } = this.props;
+  //   if (page === 1) {
+  //     this.fetchLatestPhotos();
+  //   }
+  // };
 
-  componentDidMount = () => {
-    const { page } = this.props;
-    if (page === 1) {
-      this.getLatestPhotos();
-    }
-  };
+  // componentDidUpdate = prevProps => {
+  //   const { page } = this.props;
+  //   if (prevProps.page !== 1 && page === 1) {
+  //     this.fetchLatestPhotos();
+  //   }
+  //   if (prevProps.page !== page && prevProps.page < page) {
+  //     this.fetchLatestPhotos();
+  //   }
+  // };
 
-  componentDidUpdate = prevProps => {
-    const { page } = this.props;
-    if (prevProps.page !== 1 && page === 1) {
-      this.getLatestPhotos(page);
-    }
-  };
-
-  componentWillUnmount = () => {
-    const { defaultPhotos } = this.props;
-    defaultPhotos();
-  };
+  // componentWillUnmount = () => {
+  //   const { defaultPhotos } = this.props;
+  //   defaultPhotos();
+  // };
 
   render() {
     const { photos } = this.props;
     return (
       <div>
         <FixedMenu />
-        <PhotoStock images={photos} appendImages={this.appendLatestPhotos} />
+        <PhotoStock
+          images={photos}
+          appendImages={() => console.log("home append")}
+        />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div>
+          {/* <button onClick={this.props.incrementPage}>append</button> */}
+          <button onClick={() => this.fetchLatestPhotos(1)}>page1</button>
+          <button onClick={() => this.fetchLatestPhotos(2)}>page2</button>
+          <button onClick={() => this.fetchLatestPhotos(3)}>page3</button>
+        </div>
       </div>
     );
   }

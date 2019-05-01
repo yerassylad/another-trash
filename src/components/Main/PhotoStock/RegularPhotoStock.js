@@ -4,6 +4,8 @@ import ImageWithDimmer from "../ImageWithDimmer";
 
 const RegularPhotoStock = props => {
   const { columnedPhotos } = props;
+  console.log("columned photos", columnedPhotos);
+
   const columns = columnedPhotos.length;
   return (
     <Grid>
@@ -13,7 +15,7 @@ const RegularPhotoStock = props => {
             {column.map(photo => (
               <ImageWithDimmer
                 key={photo.id}
-                imageSrc={photo.urls.regular}
+                imageSrc={photo.urls.small}
                 user={{
                   avatarUrl: photo.user.profile_image.small,
                   firstName: photo.user.first_name,
