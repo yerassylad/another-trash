@@ -1,33 +1,48 @@
 import React from "react";
-import { Grid } from "semantic-ui-react";
-import ImageWithDimmer from "../ImageWithDimmer";
+import { Grid, Image } from "semantic-ui-react";
+import { connect } from "react-redux";
+import ImageDimmer from "../ImageDimmer";
+import penultImage from "../../../HOCs/penultImage";
+import incrementPage from "../../../actions/Pohotos/incrementPage";
+
+const PenulImage = penultImage(Image);
 
 const RegularPhotoStock = props => {
-  const { columnedPhotos } = props;
-  console.log("columned photos", columnedPhotos);
+  const { columnedPhotos, columns } = props;
 
-  const columns = columnedPhotos.length;
   return (
     <Grid>
       <Grid.Row columns={columns}>
-        {columnedPhotos.map((column, index) => (
-          <Grid.Column key={index}>
-            {column.map(photo => (
-              <ImageWithDimmer
-                key={photo.id}
-                imageSrc={photo.urls.small}
-                user={{
-                  avatarUrl: photo.user.profile_image.small,
-                  firstName: photo.user.first_name,
-                  lastName: photo.user.last_name
-                }}
-              />
-            ))}
-          </Grid.Column>
-        ))}
+        {columnedPhotos.map((column, columnIndex) => {
+          const columnPenultPhotoIndex = column.length - 2;
+          return (
+            <Grid.Column key={columnIndex}>
+              {column.map((photo, photoIndex) => {
+                if (columnPenultPhotoIndex === photoIndex) {
+                  return (
+                    <ImageDimmer user={photo.user}>
+                      <PenulImage
+                        onImageVisible={props.incrementPage}
+                        src={photo.urls.small}
+                      />
+                    </ImageDimmer>
+                  );
+                }
+                return (
+                  <ImageDimmer user={photo.user}>
+                    <Image src={photo.urls.small} />
+                  </ImageDimmer>
+                );
+              })}
+            </Grid.Column>
+          );
+        })}
       </Grid.Row>
     </Grid>
   );
 };
 
-export default RegularPhotoStock;
+export default connect(
+  null,
+  { incrementPage }
+)(RegularPhotoStock);

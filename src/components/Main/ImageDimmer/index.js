@@ -6,7 +6,7 @@ import DimmerContentWrapper from "./DimmerContentWrapper";
 import Avatar from "../Avatar";
 import DownloadButton from "../DownloadButton";
 
-class TestDimmer extends Component {
+class ImageDimmer extends Component {
   state = {
     isDimmerActive: false
   };
@@ -17,6 +17,7 @@ class TestDimmer extends Component {
 
   render() {
     const { isDimmerActive } = this.state;
+
     const { user, handleGoToPhoto, handleDownload, children } = this.props;
 
     return (
@@ -35,9 +36,9 @@ class TestDimmer extends Component {
             <Grid columns={2}>
               <Grid.Column textAlign="left">
                 <Avatar
-                  avatarUrl={user.avatarUrl}
-                  firstName={user.firstName}
-                  lastName={user.lastName}
+                  avatarUrl={user.profile_image.small}
+                  firstName={user.first_name}
+                  lastName={user.last_name}
                 />
               </Grid.Column>
               <Grid.Column textAlign="right">
@@ -56,10 +57,10 @@ class TestDimmer extends Component {
   }
 }
 
-TestDimmer.propTypes = {
+ImageDimmer.propTypes = {
   user: PropTypes.objectOf(PropTypes.any).isRequired,
   handleGoToPhoto: PropTypes.func.isRequired.isRequired,
   handleDownload: PropTypes.func.isRequired.isRequired
 };
 
-export default TestDimmer;
+export default ImageDimmer;
