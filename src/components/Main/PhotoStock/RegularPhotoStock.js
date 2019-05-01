@@ -1,33 +1,69 @@
 import React from "react";
-import { Grid } from "semantic-ui-react";
-import ImageWithDimmer from "../ImageWithDimmer";
+import { Grid, Image } from "semantic-ui-react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import ImageDimmer from "../ImageDimmer";
+import penultImage from "../../../HOCs/penultImage";
+import incrementPage from "../../../actions/Pohotos/incrementPage";
+
+const PenultImage = penultImage(Image);
 
 const RegularPhotoStock = props => {
-  const { columnedPhotos } = props;
-  console.log("columned photos", columnedPhotos);
+  const { columnedPhotos, columns, history, incrementPage } = props;
 
-  const columns = columnedPhotos.length;
+  const handleGoToPhotoFn = photoID => () => {
+    history.push({
+      pathname: `/img/${photoID}`,
+      state: { modal: true }
+    });
+  };
+
   return (
     <Grid>
       <Grid.Row columns={columns}>
-        {columnedPhotos.map((column, index) => (
-          <Grid.Column key={index}>
-            {column.map(photo => (
-              <ImageWithDimmer
-                key={photo.id}
-                imageSrc={photo.urls.small}
-                user={{
-                  avatarUrl: photo.user.profile_image.small,
-                  firstName: photo.user.first_name,
-                  lastName: photo.user.last_name
-                }}
-              />
-            ))}
-          </Grid.Column>
-        ))}
+        {columnedPhotos.map((column, columnIndex) => {
+          const columnPenultPhotoIndex = column.length - 2;
+          return (
+            <Grid.Column key={columnIndex}>
+              {column.map((photo, photoIndex) => {
+                if (columnPenultPhotoIndex === photoIndex) {
+                  return (
+                    <ImageDimmer
+                      key={photo.id}
+                      handleGoToPhoto={handleGoToPhotoFn(photo.id)}
+                      user={photo.user}
+                    >
+                      <PenultImage
+                        onImageVisible={incrementPage}
+                        src={photo.urls.small}
+                        fluid
+                      />
+                    </ImageDimmer>
+                  );
+                }
+                return (
+                  <ImageDimmer
+                    key={photo.id}
+                    handleGoToPhoto={handleGoToPhotoFn(photo.id)}
+                    user={photo.user}
+                  >
+                    <Image fluid src={photo.urls.small} />
+                  </ImageDimmer>
+                );
+              })}
+            </Grid.Column>
+          );
+        })}
       </Grid.Row>
     </Grid>
   );
 };
 
-export default RegularPhotoStock;
+export default withRouter(
+  connect(
+    null,
+    { incrementPage }
+  )(RegularPhotoStock)
+);
+
+// props.incrementPage
