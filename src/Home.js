@@ -3,36 +3,37 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import FixedMenu from "./components/Main/FixedMenu";
 import incrementPage from "./actions/Pohotos/incrementPage";
+import defaultPhotos from "./actions/Pohotos/defaultPhotos";
 import getLatestPhotos from "./actions/Pohotos/getLatestPhotos";
 import PhotoStock from "./components/Main/PhotoStock";
 
 export class Home extends Component {
-  fetchLatestPhotos = page => {
-    const { getLatestPhotos } = this.props;
+  fetchLatestPhotos = () => {
+    const { getLatestPhotos, page } = this.props;
     getLatestPhotos(page);
   };
 
-  // componentDidMount = () => {
-  //   const { page } = this.props;
-  //   if (page === 1) {
-  //     this.fetchLatestPhotos();
-  //   }
-  // };
+  componentDidMount = () => {
+    const { dirty } = this.props;
+    if (!dirty) {
+      this.fetchLatestPhotos();
+    }
+  };
 
-  // componentDidUpdate = prevProps => {
-  //   const { page } = this.props;
-  //   if (prevProps.page !== 1 && page === 1) {
-  //     this.fetchLatestPhotos();
-  //   }
-  //   if (prevProps.page !== page && prevProps.page < page) {
-  //     this.fetchLatestPhotos();
-  //   }
-  // };
+  componentDidUpdate = prevProps => {
+    const { dirty, page } = this.props;
+    if (prevProps.dirty && !dirty) {
+      this.fetchLatestPhotos();
+    }
+    if (dirty && prevProps.page !== page) {
+      this.fetchLatestPhotos();
+    }
+  };
 
-  // componentWillUnmount = () => {
-  //   const { defaultPhotos } = this.props;
-  //   defaultPhotos();
-  // };
+  componentWillUnmount = () => {
+    const { defaultPhotos } = this.props;
+    defaultPhotos();
+  };
 
   render() {
     const { photos } = this.props;
@@ -51,10 +52,8 @@ export class Home extends Component {
         <br />
         <br />
         <div>
-          {/* <button onClick={this.props.incrementPage}>append</button> */}
-          <button onClick={() => this.fetchLatestPhotos(1)}>page1</button>
-          <button onClick={() => this.fetchLatestPhotos(2)}>page2</button>
-          <button onClick={() => this.fetchLatestPhotos(3)}>page3</button>
+          <button onClick={this.props.incrementPage}>append</button>
+          <button onClick={this.props.defaultPhotos}>default</button>
         </div>
       </div>
     );
@@ -63,7 +62,8 @@ export class Home extends Component {
 
 const mapStateToProps = state => ({
   page: state.photos.page,
-  photos: state.photos.photos
+  photos: state.photos.photos,
+  dirty: state.photos.dirty
 });
 
 const mapDispatchToProps = dispatch =>
@@ -71,9 +71,7 @@ const mapDispatchToProps = dispatch =>
     {
       getLatestPhotos,
       incrementPage,
-      defaultPhotos: () => ({
-        type: "DEFAULT_PHOTOS"
-      })
+      defaultPhotos
     },
     dispatch
   );

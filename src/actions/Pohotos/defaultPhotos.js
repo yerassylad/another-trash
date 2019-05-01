@@ -1,3 +1,3 @@
 export default () => ({
-  type: "INCREMENT_PAGE"
+  type: "DEFAULT_PHOTOS"
 });

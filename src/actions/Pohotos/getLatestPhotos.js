@@ -1,8 +1,11 @@
 import unsplash from "../../api";
-import appendPhotos from "./appendPhotos";
+import fetchPhotosBegin from "./fetchPhotosBegin";
+import fetchPhotosFailure from "./fetchPhotosFailure";
+import fetchPhotosSuccess from "./fetchPhotosSuccess";
 
 export default page => async dispatch => {
   try {
+    dispatch(fetchPhotosBegin());
     const response = await unsplash({
       method: "get",
       url: "/photos",
@@ -13,8 +16,8 @@ export default page => async dispatch => {
       }
     });
     const latestPhotos = response.data;
-    dispatch(appendPhotos(latestPhotos));
+    dispatch(fetchPhotosSuccess(latestPhotos));
   } catch (error) {
-    console.log("error", error);
+    dispatch(fetchPhotosFailure(error));
   }
 };

@@ -3,20 +3,35 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import searchPhotos from "./actions/Pohotos/searchPhotos";
 import incrementPage from "./actions/Pohotos/incrementPage";
+import defaultPhotos from "./actions/Pohotos/defaultPhotos";
 import PhotoStock from "./components/Main/PhotoStock";
 import FixedMenu from "./components/Main/FixedMenu";
 
 class SearchPage extends Component {
-  searchPhotos = () => {
+  makeSearchPhotos = () => {
     const { searchPhotos, page, match } = this.props;
     const query = match.params.search;
     searchPhotos(query, page);
   };
 
   componentDidMount = () => {
-    const { defaultPhotos } = this.props;
-    defaultPhotos();
-    this.searchPhotos();
+    const { dirty } = this.props;
+    if (!dirty) {
+      this.makeSearchPhotos();
+    }
+  };
+
+  componentDidUpdate = prevProps => {
+    const { dirty, page, match, defaultPhotos } = this.props;
+    if (prevProps.dirty && !dirty) {
+      this.makeSearchPhotos();
+    }
+    if (dirty && prevProps.page !== page) {
+      this.makeSearchPhotos();
+    }
+    if (match.params.search !== prevProps.match.params.search) {
+      defaultPhotos();
+    }
   };
 
   componentWillUnmount = () => {
@@ -29,8 +44,16 @@ class SearchPage extends Component {
 
     return (
       <div>
-        {/* <FixedMenu />
-        <PhotoStock images={photos} appendImages={this.appendSearchPhotos} /> */}
+        <FixedMenu />
+        <PhotoStock images={photos} appendImages={this.appendSearchPhotos} />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <button onClick={this.props.incrementPage}>append</button>
       </div>
     );
   }
@@ -38,7 +61,8 @@ class SearchPage extends Component {
 
 const mapStateToProps = state => ({
   page: state.photos.page,
-  photos: state.photos.photos
+  photos: state.photos.photos,
+  dirty: state.photos.dirty
 });
 
 const mapDispatchToProps = dispatch =>
@@ -46,9 +70,7 @@ const mapDispatchToProps = dispatch =>
     {
       searchPhotos,
       incrementPage,
-      defaultPhotos: () => ({
-        type: "DEFAULT_PHOTOS"
-      })
+      defaultPhotos
     },
     dispatch
   );

@@ -1,17 +1,23 @@
 import unsplash from "../../api";
-import appendPhotos from "./appendPhotos";
+import fetchPhotosBegin from "./fetchPhotosBegin";
+import fetchPhotosSuccess from "./fetchPhotosSuccess";
+import fetchPhotosFailure from "./fetchPhotosFailure";
 
 export default (query, page) => async dispatch => {
   try {
-    const response = await unsplash.get("/search/photos", {
+    dispatch(fetchPhotosBegin());
+    const response = await unsplash({
+      method: "get",
+      url: "/search/photos",
       params: {
         query,
-        page
+        page,
+        per_page: 10
       }
     });
     const foundPhotos = response.data.results;
-    dispatch(appendPhotos(foundPhotos));
+    dispatch(fetchPhotosSuccess(foundPhotos));
   } catch (error) {
-    console.log("eroro on search photos", error);
+    dispatch(fetchPhotosFailure(error));
   }
 };
