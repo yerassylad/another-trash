@@ -2,42 +2,36 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import FixedMenu from "./components/Main/FixedMenu";
-import clearPhotos from "./actions/Pohotos/clearPhotos";
-import toPageOne from "./actions/Pohotos/toPageOne";
-import incrementPage from "./actions/Pohotos/incrementPage";
+import defaultPhotos from "./actions/Pohotos/defaultPhotos";
 import getLatestPhotos from "./actions/Pohotos/getLatestPhotos";
 import PhotoStock from "./components/Main/PhotoStock";
 
 export class Home extends Component {
-  getLatestPhotos = () => {
+  fetchLatestPhotos = () => {
     const { getLatestPhotos, page } = this.props;
     getLatestPhotos(page);
   };
 
-  appendLatestPhotos = () => {
-    const { incrementPage, getLatestPhotos, page } = this.props;
-    incrementPage();
-    getLatestPhotos(page + 1);
-  };
-
   componentDidMount = () => {
-    const { page } = this.props;
-    if (page === 1) {
-      this.getLatestPhotos();
+    const { dirty } = this.props;
+    if (!dirty) {
+      this.fetchLatestPhotos();
     }
   };
 
   componentDidUpdate = prevProps => {
-    const { page } = this.props;
-    if (prevProps.page !== 1 && page === 1) {
-      this.getLatestPhotos(page);
+    const { dirty, page } = this.props;
+    if (prevProps.dirty && !dirty) {
+      this.fetchLatestPhotos();
+    }
+    if (dirty && prevProps.page !== page) {
+      this.fetchLatestPhotos();
     }
   };
 
   componentWillUnmount = () => {
-    const { clearPhotos, toPageOne } = this.props;
-    toPageOne();
-    clearPhotos();
+    const { defaultPhotos } = this.props;
+    defaultPhotos();
   };
 
   render() {
@@ -45,7 +39,7 @@ export class Home extends Component {
     return (
       <div>
         <FixedMenu />
-        <PhotoStock images={photos} appendImages={this.appendLatestPhotos} />
+        <PhotoStock images={photos} />
       </div>
     );
   }
@@ -53,16 +47,15 @@ export class Home extends Component {
 
 const mapStateToProps = state => ({
   page: state.photos.page,
-  photos: state.photos.photos
+  photos: state.photos.photos,
+  dirty: state.photos.dirty
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      clearPhotos,
-      toPageOne,
       getLatestPhotos,
-      incrementPage
+      defaultPhotos
     },
     dispatch
   );
