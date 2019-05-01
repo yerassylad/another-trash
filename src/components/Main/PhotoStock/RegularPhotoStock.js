@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid, Image } from "semantic-ui-react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import ImageDimmer from "../ImageDimmer";
 import penultImage from "../../../HOCs/penultImage";
 import incrementPage from "../../../actions/Pohotos/incrementPage";
@@ -8,7 +9,13 @@ import incrementPage from "../../../actions/Pohotos/incrementPage";
 const PenulImage = penultImage(Image);
 
 const RegularPhotoStock = props => {
-  const { columnedPhotos, columns } = props;
+  const { columnedPhotos, columns, history } = props;
+  const handleGoToPhotoFn = photoID => () => {
+    history.push({
+      pathname: `/img/${photoID}`,
+      state: { modal: true }
+    });
+  };
 
   return (
     <Grid>
@@ -20,7 +27,10 @@ const RegularPhotoStock = props => {
               {column.map((photo, photoIndex) => {
                 if (columnPenultPhotoIndex === photoIndex) {
                   return (
-                    <ImageDimmer user={photo.user}>
+                    <ImageDimmer
+                      handleGoToPhoto={handleGoToPhotoFn(photo.id)}
+                      user={photo.user}
+                    >
                       <PenulImage
                         onImageVisible={props.incrementPage}
                         src={photo.urls.small}
@@ -29,7 +39,10 @@ const RegularPhotoStock = props => {
                   );
                 }
                 return (
-                  <ImageDimmer user={photo.user}>
+                  <ImageDimmer
+                    handleGoToPhoto={handleGoToPhotoFn(photo.id)}
+                    user={photo.user}
+                  >
                     <Image src={photo.urls.small} />
                   </ImageDimmer>
                 );
@@ -42,7 +55,9 @@ const RegularPhotoStock = props => {
   );
 };
 
-export default connect(
-  null,
-  { incrementPage }
-)(RegularPhotoStock);
+export default withRouter(
+  connect(
+    null,
+    { incrementPage }
+  )(RegularPhotoStock)
+);
