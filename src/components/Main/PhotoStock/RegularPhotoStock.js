@@ -6,10 +6,11 @@ import ImageDimmer from "../ImageDimmer";
 import penultImage from "../../../HOCs/penultImage";
 import incrementPage from "../../../actions/Pohotos/incrementPage";
 
-const PenulImage = penultImage(Image);
+const PenultImage = penultImage(Image);
 
 const RegularPhotoStock = props => {
-  const { columnedPhotos, columns, history } = props;
+  const { columnedPhotos, columns, history, incrementPage } = props;
+
   const handleGoToPhotoFn = photoID => () => {
     history.push({
       pathname: `/img/${photoID}`,
@@ -28,22 +29,25 @@ const RegularPhotoStock = props => {
                 if (columnPenultPhotoIndex === photoIndex) {
                   return (
                     <ImageDimmer
+                      key={photo.id}
                       handleGoToPhoto={handleGoToPhotoFn(photo.id)}
                       user={photo.user}
                     >
-                      <PenulImage
-                        onImageVisible={props.incrementPage}
+                      <PenultImage
+                        onImageVisible={incrementPage}
                         src={photo.urls.small}
+                        fluid
                       />
                     </ImageDimmer>
                   );
                 }
                 return (
                   <ImageDimmer
+                    key={photo.id}
                     handleGoToPhoto={handleGoToPhotoFn(photo.id)}
                     user={photo.user}
                   >
-                    <Image src={photo.urls.small} />
+                    <Image fluid src={photo.urls.small} />
                   </ImageDimmer>
                 );
               })}
@@ -61,3 +65,5 @@ export default withRouter(
     { incrementPage }
   )(RegularPhotoStock)
 );
+
+// props.incrementPage

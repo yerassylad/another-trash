@@ -17,9 +17,10 @@ const penultImage = WrappedComponent => {
     };
 
     render() {
+      const { onImageVisible, ...rest } = this.props;
       return (
         <IntersectionVisible onShow={this.handleOnShow}>
-          <WrappedComponent onLoad={this.handleOnLoad} {...this.props} />
+          <WrappedComponent onLoad={this.handleOnLoad} {...rest} />
         </IntersectionVisible>
       );
     }
