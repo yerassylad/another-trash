@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import FixedMenu from "./components/Main/FixedMenu";
-import incrementPage from "./actions/Pohotos/incrementPage";
 import defaultPhotos from "./actions/Pohotos/defaultPhotos";
 import getLatestPhotos from "./actions/Pohotos/getLatestPhotos";
 import PhotoStock from "./components/Main/PhotoStock";
@@ -40,21 +39,7 @@ export class Home extends Component {
     return (
       <div>
         <FixedMenu />
-        <PhotoStock
-          images={photos}
-          appendImages={() => console.log("home append")}
-        />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <div>
-          <button onClick={this.props.incrementPage}>append</button>
-          <button onClick={this.props.defaultPhotos}>default</button>
-        </div>
+        <PhotoStock images={photos} />
       </div>
     );
   }
@@ -70,7 +55,6 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getLatestPhotos,
-      incrementPage,
       defaultPhotos
     },
     dispatch

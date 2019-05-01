@@ -45,15 +45,7 @@ class SearchPage extends Component {
     return (
       <div>
         <FixedMenu />
-        <PhotoStock images={photos} appendImages={this.appendSearchPhotos} />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <button onClick={this.props.incrementPage}>append</button>
+        <PhotoStock images={photos} />
       </div>
     );
   }
