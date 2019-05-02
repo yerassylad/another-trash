@@ -24,10 +24,6 @@ export class ImagePage extends Component {
     this._getSinglePhoto();
   };
 
-  componentDidUpdate = () => {
-    console.log("image", this.state);
-  };
-
   _getSinglePhoto = async () => {
     const { id } = this.props.match.params;
     const response = await unsplash(`/photos/${id}`);
