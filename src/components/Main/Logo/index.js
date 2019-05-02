@@ -26,7 +26,7 @@ const Logo = () => {
     <LogoRoot>
       <Icon name="photo" color="black" size="huge" />
       <LogoTexter>
-        <LogoText bold>Yerassyl</LogoText>
+        <LogoText bold>Yerassyl Aitkazy</LogoText>
         <LogoText>yerassyl.ad@gmail.com</LogoText>
       </LogoTexter>
     </LogoRoot>
