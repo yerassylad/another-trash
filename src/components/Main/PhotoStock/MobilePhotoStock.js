@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Grid, Image } from "semantic-ui-react";
+import { Segment, Image, Grid } from "semantic-ui-react";
 import incrementPage from "../../../actions/Pohotos/incrementPage";
 import ImageWrapper from "../ImageDimmer/ImageWrapper";
 import Avatar from "../Avatar";
@@ -17,8 +17,7 @@ const MobilePhotoStock = props => {
     <div>
       {photos.map((photo, photoIndex) => {
         return (
-          <div key={photo.id}>
-            <div style={{ width: "100%", height: 100, background: "blue" }} />
+          <Segment key={photo.id}>
             <ImageWrapper>
               {photoIndex === penultPhotoIndex ? (
                 <MobilePenultImage
@@ -30,7 +29,21 @@ const MobilePhotoStock = props => {
                 <Image fluid src={photo.urls.small} />
               )}
             </ImageWrapper>
-          </div>
+            <Grid>
+              <Grid.Row columns={2}>
+                <Grid.Column textAlign="left">
+                  <Avatar
+                    avatarUrl={photo.user.profile_image.small}
+                    firstName={photo.user.first_name}
+                    lastName={photo.user.last_name}
+                  />
+                </Grid.Column>
+                <Grid.Column textAlign="right">
+                  <DownloadButton />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Segment>
         );
       })}
     </div>
