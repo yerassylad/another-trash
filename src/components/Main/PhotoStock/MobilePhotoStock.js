@@ -6,6 +6,7 @@ import ImageWrapper from "../ImageDimmer/ImageWrapper";
 import Avatar from "../Avatar";
 import DownloadButton from "../DownloadButton";
 import penultImage from "../../../HOCs/penultImage";
+import downloadPhoto from "../../../libs/downloadPhoto";
 
 const MobilePenultImage = penultImage(Image);
 
@@ -39,7 +40,7 @@ const MobilePhotoStock = props => {
                   />
                 </Grid.Column>
                 <Grid.Column textAlign="right">
-                  <DownloadButton />
+                  <DownloadButton handleClick={downloadPhoto(photo.id)} />
                 </Grid.Column>
               </Grid.Row>
             </Grid>
