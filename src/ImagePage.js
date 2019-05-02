@@ -68,7 +68,7 @@ export class ImagePage extends Component {
         </div>
         <ImagePageStats>
           <Container>
-            <Grid columns={3} textAlign="center">
+            <Grid stackable columns={3} textAlign="center">
               <Grid.Column>
                 <Stat iconName="eye" value={photo.views} label="Просмотров" />
               </Grid.Column>
