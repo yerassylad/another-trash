@@ -5,7 +5,6 @@ import FixedMenu from "./components/Main/FixedMenu";
 import defaultPhotos from "./actions/Pohotos/defaultPhotos";
 import getLatestPhotos from "./actions/Pohotos/getLatestPhotos";
 import PhotoStock from "./components/Main/PhotoStock";
-import Wrapper from "./components/Main/Wrapper";
 
 export class Home extends Component {
   fetchLatestPhotos = () => {
