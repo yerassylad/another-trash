@@ -11,6 +11,7 @@ import {
   ImagePageStickyContainer,
   ImagePageStats
 } from "./components/Main/ImagePageComponents";
+import downloadPhoto from "./libs/downloadPhoto";
 
 const PortalledModel = wrapWithPortal(Modal);
 
@@ -41,6 +42,8 @@ export class ImagePage extends Component {
     history.goBack();
   };
 
+  _downloadPhoto = downloadPhoto;
+
   render() {
     const { photo } = this.state;
 
@@ -59,7 +62,7 @@ export class ImagePage extends Component {
                   />
                 </Grid.Column>
                 <Grid.Column textAlign="right">
-                  <DownloadButton handleClick={() => console.log(photo)} />
+                  <DownloadButton handleClick={this._downloadPhoto(photo.id)} />
                 </Grid.Column>
               </Grid>
             </ImagePageHeader>

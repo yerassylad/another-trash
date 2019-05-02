@@ -6,6 +6,7 @@ import ImageDimmer from "../ImageDimmer";
 import penultImage from "../../../HOCs/penultImage";
 import incrementPage from "../../../actions/Pohotos/incrementPage";
 import Wrapper from "../Wrapper";
+import downloadPhoto from "../../../libs/downloadPhoto";
 
 const PenultImage = penultImage(Image);
 
@@ -33,6 +34,7 @@ const RegularPhotoStock = props => {
                       <ImageDimmer
                         key={photo.id}
                         handleGoToPhoto={handleGoToPhotoFn(photo.id)}
+                        handleDownload={downloadPhoto(photo.id)}
                         user={photo.user}
                       >
                         <PenultImage
@@ -48,6 +50,7 @@ const RegularPhotoStock = props => {
                       key={photo.id}
                       handleGoToPhoto={handleGoToPhotoFn(photo.id)}
                       user={photo.user}
+                      handleDownload={downloadPhoto(photo.id)}
                     >
                       <Image fluid src={photo.urls.small} />
                     </ImageDimmer>
@@ -68,5 +71,3 @@ export default withRouter(
     { incrementPage }
   )(RegularPhotoStock)
 );
-
-// props.incrementPage
